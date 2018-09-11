@@ -46,7 +46,7 @@ pipeline {
                         dockerfile {
                             dir 'buildagent'
                             label 'dockerhost'
-                            args '-u 0:0 --network="ec2-user_default" -v /home/jenkins/.m2/repository:/root/.m2/repository'
+                            args '-u 0:0 -v /home/jenkins/.m2/repository:/root/.m2/repository'
                         }
                     }
                     steps {
