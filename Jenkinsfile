@@ -87,7 +87,8 @@ pipeline {
                 script {
                     def sonarOptions = [
                             "-Dsonar.login=${env.SONAR_TOKEN}",
-                            "-Dsonar.branch=${env.BRANCH_NAME}"
+                            "-Dsonar.branch=${env.BRANCH_NAME}",
+                            "-Dsonar.host.url=https://sonarcloud.io"
                     ]
 
                     mvn "dependency:copy-dependencies sonar:sonar ${sonarOptions.join(' ')}"
