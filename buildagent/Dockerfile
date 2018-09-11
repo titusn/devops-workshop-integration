@@ -23,7 +23,7 @@ RUN apt-get update && \
     # Java Development Environment
     openjdk-8-jdk git maven curl \
     # Build Dependencies
-    build-essential udev libexif-dev software-properties-common unzip jq
+    build-essential udev libexif-dev software-properties-common unzip jq exiftool
 
 # Install Docker
 RUN curl -sSL https://get.docker.com | bash
