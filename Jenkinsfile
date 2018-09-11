@@ -64,5 +64,35 @@ pipeline {
                 }
             }
         }
+        /**
+         * Run the sonar analysis
+         */
+        stage('Run Sonar') {
+            agent {
+                dockerfile {
+                    dir 'buildagent'
+                    label 'dockerhost'
+                    args '-u 0:0 -v /home/jenkins/.m2/repository:/root/.m2/repository'
+                }
+            }
+            environment {
+                SONAR_TOKEN = credentials('SONAR_TOKEN')
+            }
+            when {
+                expression {
+                    !params.NO_SONAR
+                }
+            }
+            steps {
+                script {
+                    def sonarOptions = [
+                            "-Dsonar.login=${env.SONAR_TOKEN}",
+                            "-Dsonar.branch=${env.BRANCH_NAME}"
+                    ]
+
+                    mvn "dependency:copy-dependencies sonar:sonar ${sonarOptions.join(' ')}"
+                }
+            }
+        }
     }
 }
